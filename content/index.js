@@ -71,6 +71,11 @@ chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
     state.reload.md = true
     m.redraw()
   }
+  else if (req.message === 'content.toc') {
+    state.content.toc = req.toc
+    state.toc = state.content.toc ? toc.render(state.html) : ''
+    m.redraw()
+  }
   else if (req.message === 'autoreload') {
     clearInterval(state.reload.interval)
   }
@@ -194,7 +199,11 @@ function mount () {
 
         if (state.content.toc) {
           dom.push(m('#_toc.tex2jax-ignore', m.trust(state.toc)))
-          state.raw ? $('body').classList.remove('_toc-left') : $('body').classList.add('_toc-left')
+        }
+
+        var shouldShowTocLeft = state.content.toc && !state.raw
+        if ($('body').classList.contains('_toc-left') !== shouldShowTocLeft) {
+          $('body').classList.toggle('_toc-left')
         }
 
         if (state.theme === 'custom') {

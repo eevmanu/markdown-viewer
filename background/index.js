@@ -34,6 +34,21 @@ importScripts('/background/icon.js')
 
   chrome.tabs.onUpdated.addListener(detect.tab)
   chrome.runtime.onMessage.addListener(messages)
+  chrome.commands.onCommand.addListener((command) => {
+    if (command === 'toggle-toc') {
+      state.content.toc = !state.content.toc
+      set({content: state.content})
+      chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+        if (tabs[0]) {
+          chrome.tabs.sendMessage(tabs[0].id, {message: 'content.toc', toc: state.content.toc}, () => {
+            if (chrome.runtime.lastError && !/Receiving end does not exist/.test(chrome.runtime.lastError.message)) {
+              console.debug(chrome.runtime.lastError.message)
+            }
+          })
+        }
+      })
+    }
+  })
 
   icon()
 })()

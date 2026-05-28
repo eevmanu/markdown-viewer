@@ -30,6 +30,12 @@
     "service_worker": "/background/index.js"
   },
 
+  "commands": {
+    "toggle-toc": {
+      "description": "Toggle table of contents"
+    }
+  },
+
   "options_page": "/options/index.html",
 
   "web_accessible_resources": [
