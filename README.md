@@ -185,6 +185,13 @@ Alternatively code blocks can be wrapped in HTML tags:
 
 Generates Table of Contents (ToC) based on the headers found in the markdown document.
 
+On Chrome you can also toggle ToC live using an extension shortcut:
+
+1. Navigate to `chrome://extensions/shortcuts`
+2. Find Markdown Viewer and set a shortcut for `Toggle table of contents`
+
+Pressing that shortcut while viewing rendered markdown toggles ToC immediately and keeps popup settings in sync.
+
 ---
 
 # Manage Origins
